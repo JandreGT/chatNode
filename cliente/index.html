@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Chat</title>
+
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+    <audio id="myAudio">
+        <source src="sonido/notificacion1.mp3" type="audio/mpeg">
+    </audio>
+    
+</head>
+<body id="bodyChat">
+
+    <div class="container">
+        
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark margin-nav">
+            <a class="navbar-brand" href="#">SALA DE CHAT</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#" id="btnConfig">Configuraciones <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <!-- <a class="nav-link" href="#">Acerca de </a> -->
+                </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="row">
+            <div class="col-sm Bienvenido">
+                <h3>Bienvenidos </h3>
+                    <p>1. Cambiar tu nombre en configuraciones.</p>
+                    <p>2. Cifrado de mensajes.</p>
+                    <p>3. Cambia el puerto de comunicacion.</p>
+            </div>                  
+
+            <div class="col-sm">
+
+                <div id="contenedorMessages">
+                    
+                </div>
+                <div style=" text-align: center">
+                    <form onsubmit="return addMessage(this)">
+                        <div class="form-group">
+
+                            <form class="form-inline" onsubmit="return addMessage(this)">
+                                <div class="form-group">
+                                    <input type="text" name="txt" id="text" size="25" placeholder="Escribir mensaje">
+                                    <button type="submit" class="btn btn-info btn-sm mb-2">Enviar</button>
+                                </div>
+                                
+                            </form>
+                        
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-sm  conectados">
+                
+                <div id="conectados" class="scroll">
+                        <h4>Conectados</h4>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="ModalConfig" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <center><h5 class="modal-title" id="exampleModalLabel"></h5></center>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm border configuracion" >
+                        <h4>Configuraciones</h4>
+                        <br>
+                        <br>
+                        <div mb-3>                    
+                            <form>                       
+        
+                                    <div class="form-group">
+                                        <small id="emailHelp" class="form-text text-muted">Este nombre aparecera en el chat.</small>
+                                        <input type="text" name="txt" id="nickname"  placeholder="nombre">
+                                        <input id="addMessageName"class="btn btn-info btn-sm mb-2" value="Cambiar">
+                                    </div>                            
+                    
+                            </form>
+                        </div>
+        
+                        <div id="NoPuerto">
+                        </div>
+        
+                        <div class="input-group mb-3">
+                                        
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="selectPuerto">Puerto</label>
+                                <input type="hidden" value="" id="puerto_id">
+                            </div>
+                            <select class="custom-select" id="selectPuerto">
+                                <option value="0" disabled selected>Selecciona un puerto</option>
+                                <option value="6677">6677</option>
+                                <option value="6678">6678</option>
+                                <option value="6679">6679</option>
+                                <option value="8080">8080</option>
+                                <option value="8080">8081</option>
+                                <option value="8080">8082</option>
+                                <option value="8080">8083</option>
+                                <option value="8080">8084</option>
+                                <option value="8080">8085</option>
+                                <option value="8080">8086</option>
+                                <option value="8080">8087</option>
+                                <option value="8080">8088</option>
+                                <option value="8080">8089</option>
+                                <option value="8080">8090</option>
+                                <option value="8080">8091</option>
+                            </select>
+                        </div>
+        
+                        <br>
+                        <small id="" class="form-text text-muted">Los mensajes se Cifraran.</small>
+                        
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <label class="input-group-text" for="selectPuerto">Cifrar</label>
+                            </div>
+                            <select class="custom-select" id="selectEncript">
+                                <option value="0" disabled selected>Selecciona una opcion</option>
+                                <option value="1">si</option>
+                                <option value="0">no</option>
+                            </select>
+                        </div>
+        
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info"  class="close" data-dismiss="modal" >Cerrar</button>
+                    <!-- <button type="button" class="btn btn-info" id="actualizar">Actualizar</button> -->
+                </div>
+                </div>
+            </div>
+    </div>
+          
+    <!-- Modal -->
+    <div class="modal fade" id="ModalPuertos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <center><h5 class="modal-title" id="exampleModalLabel">ALERTA</h5></center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p> El puerto  lógico para la comunicación de la red se ha cambiado.</p>
+                <h6> ¿Desea actualizar el puerto?</h6>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="no_actualizar">No</button>
+                <button type="button" class="btn btn-info" id="actualizar">Actualizar</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="section footer-classic context-dark bg-image" style="background: #111113; font-size:14px; color:#839192; padding-top:20px">
+            <div class="container">
+              <div class="row row-30">
+                <div class="col-md-4 col-xl-5">
+                  <div class="pr-xl-4">
+                    <p class="justificar-footer">Desarrollo de un chat instantaneo con estas dos tecnologías. NodeJS es una tecnología que nos permite hacer desarrollos back-end usando únicamente JavaScript.
+                       SocketIO es una librería que nos permite manejar eventos en tiempo real mediante el protocolo TCP usando únicamente JavaScript.</p>
+                    <!-- Rights-->
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!-- <h6>Equipo </h6>
+                  <dl class="contact-list">
+                    <dt>Jose Andre Coloj Aju</dt>
+                    <dd>798 South Park Avenue, Jaipur, Raj</dd>
+                  </dl> -->
+                </div>
+                <div class="col-md-4 col-xl-3">
+                  <h6>Links</h6>
+                  <ul class="nav-list">
+                    <li><a href="#">About</a></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </footer>
+
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script src="js/encript64.js"></script>
+    <script src="js/JQuery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
